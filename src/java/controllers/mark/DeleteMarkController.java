@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,14 +29,7 @@ public class DeleteMarkController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("ROLE");
-        if(!role.equals("admin"))
-        {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        
         try {
             MarkDAO dao = new MarkDAO();
             int id = Integer.parseInt(request.getParameter("id"));

@@ -7,7 +7,6 @@ package controllers.hero;
 
 import daos.HeroDAO;
 import dtos.Hero;
-import dtos.HeroError;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -37,13 +36,6 @@ public class InsertHeroController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String sessionRole = (String) session.getAttribute("ROLE");
-        if (!sessionRole.equals("admin")) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
         String url = ERROR;
         HeroDAO dao = new HeroDAO();
         String error = "";

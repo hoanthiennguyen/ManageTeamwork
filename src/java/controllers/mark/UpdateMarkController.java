@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -41,14 +40,7 @@ public class UpdateMarkController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String heroName = (String) session.getAttribute("NAME");
-        String role = (String) session.getAttribute("ROLE");
-        if (!heroName.equals("tony") && !role.equals("admin")) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        
         MarkDAO dao = new MarkDAO();
         try {
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);

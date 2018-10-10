@@ -52,10 +52,7 @@ public class UpdateHeroController extends HttpServlet {
         String roleSession = (String) session.getAttribute("ROLE");
         String usernameSession = (String) session.getAttribute("NAME");
 
-//        if (!username.equals(usernameSession) && !roleSession.equals("admin")) {
-//            response.sendRedirect(HACKED);
-//            return;
-//        }
+
         HeroDAO dao = new HeroDAO();
         try {
             boolean isMultiPart = ServletFileUpload.isMultipartContent(request);

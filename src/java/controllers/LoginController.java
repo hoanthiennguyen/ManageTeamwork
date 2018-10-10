@@ -32,16 +32,21 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String username = null, password;
         try {
-            String username = request.getParameter("txtUsername");
-            String password = request.getParameter("txtPassword");
-            HeroDAO dao = new HeroDAO();
-            String role = dao.login(username, password);
+            HttpSession session = request.getSession();
+            String role = (String)session.getAttribute("ROLE");
+            if(role == null)
+            {
+                username = request.getParameter("txtUsername");
+                password = request.getParameter("txtPassword");
+                HeroDAO dao = new HeroDAO();
+                role = dao.login(username, password);
+            }
             if(!role.equals("failed"))
             {
-                HttpSession session = request.getSession();
+                
                 session.setAttribute("ROLE", role);
                 session.setAttribute("NAME", username);
                 url = SUCCESS;

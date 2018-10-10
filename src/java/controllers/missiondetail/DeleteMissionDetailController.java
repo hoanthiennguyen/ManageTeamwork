@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,15 +29,7 @@ public class DeleteMissionDetailController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        //authenticate
-        HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("ROLE");
-        if(!role.equals("admin"))
-        {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        
         
         String missionName = request.getParameter("missionName");
         String heroName = request.getParameter("heroName");

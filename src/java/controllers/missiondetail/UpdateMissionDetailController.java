@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,17 +34,10 @@ public class UpdateMissionDetailController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         String missionName = request.getParameter("missionName");
         String heroName = request.getParameter("heroName");
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("NAME");
-        if(!username.equals(heroName))
-        {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        
         try {            
             String subtask = request.getParameter("subtask");
             String status = request.getParameter("txtStatus");

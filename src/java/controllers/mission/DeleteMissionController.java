@@ -11,16 +11,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author USER
  */
 public class DeleteMissionController extends HttpServlet {
-    private static final String SUCCESS ="SearchMissionController";
-    private static final String ERROR ="mission/allMission.jsp";
-    private static final String HACKED ="index.jsp";
+
+    private static final String SUCCESS = "SearchMissionController";
+    private static final String ERROR = "mission/allMission.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,24 +32,20 @@ public class DeleteMissionController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("ROLE");
         try {
-            if(role.equals("admin"))
-            {
-                String missionName = request.getParameter("missionName");
-                MissionDAO dao = new MissionDAO();
-                if(dao.delete(missionName)) url = SUCCESS;
-                else request.setAttribute("ERROR", "internal error: failed to delete mission" );
-            }
-            else url = HACKED;
+
+            String missionName = request.getParameter("missionName");
+            MissionDAO dao = new MissionDAO();
+            if (dao.delete(missionName)) 
+                url = SUCCESS;
+            else 
+                request.setAttribute("ERROR", "internal error: failed to delete mission");
+            
+
         } catch (Exception e) {
-            log("error at DeleteController",e);
-        }
-        
-        finally{
+            log("error at DeleteController", e);
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

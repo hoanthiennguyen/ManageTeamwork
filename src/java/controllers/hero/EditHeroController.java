@@ -31,18 +31,10 @@ public class EditHeroController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
         HeroDAO dao = new HeroDAO();
-        String username = (String) session.getAttribute("NAME");
         String heroName = request.getParameter("txtUsername");
-        String role = (String) session.getAttribute("ROLE");
         
-        if(!role.equals("user") && !role.equals("admin"))
-        {
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        
         try {
 
             Hero hero = dao.getHero(heroName);
